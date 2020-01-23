@@ -48,7 +48,9 @@ class MavenDeployer implements PluginDeployer {
      * extension or not.
      */
     void deployPlugin(File pluginPackage, File pluginXmlFile, File pomFile, boolean isRelease) {
-        mavenTasks.'install-provider'(artifactId: protocol, version: "1.0-beta-2")
+        mavenTasks.'install-provider'(artifactId: protocol, version: "1.0-beta-6") {
+            remoteRepository(id:"central", url:"https://repo1.maven.org/maven2/")
+        }
         mavenTasks.deploy(file: pluginPackage) {
             attach file: pluginXmlFile, type:"xml", classifier: "plugin"
             pom(file: pomFile)
